@@ -1,15 +1,10 @@
 local PlayersEnum = 3
 
-local function calculateLuma(color)
-    local luma = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b -- per ITU-R BT.709
-    return luma
-end
-
 if ent.GetEntityType() ~= PlayersEnum then return end
 local color = ent.GetBaseObject().player.clothing.skin
 local luma = calculateLuma(color)
 
-if luma < 0.30 and Unity.IsValid(ent) then
+if (0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b) < 0.30 and Unity.IsValid(ent) then
     local screenPos = Render.WorldToScreen(ent.GetTransform().position)
     flag.Add("<size=16>!BLACK!</size>")
 end
